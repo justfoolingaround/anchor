@@ -3,7 +3,7 @@ from setuptools import find_packages, setup
 from anchor import __version__
 
 setup(
-    name="anchor",
+    name="anchor-kr",
     version=__version__,
     author="kr@justfoolingaround",
     author_email="kr.justfoolingaround@gmail.com",
