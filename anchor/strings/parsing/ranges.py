@@ -18,17 +18,28 @@ def iter_conditions(string, media_matchers=r"[0-9.]", media_separators=r"[:=-]")
 
         contains_separator = match.group("separator") is not None
 
-        if not start:
-            if contains_separator:
-                yield lambda value, end=end: value <= end
+        if start is None:
+            if end is None:
+                yield lambda _: True
+
             else:
-                yield lambda value, end=end: value == end
+                if contains_separator:
+                    yield lambda value, end=end: value <= end
+                else:
+                    yield lambda value, end=end: value == end
 
         else:
-            if start > end:
-                start, end = end, start
+            if end is None:
+                if contains_separator:
+                    yield lambda value, start=start: value >= start
+                else:
+                    yield lambda value, start=start: value == start
 
-            yield lambda value, start=start, end=end: start <= value <= end
+            else:
+                if start > end:
+                    start, end = end, start
+
+                yield lambda value, start=start, end=end: start <= value <= end
 
 
 def match_conditions(
