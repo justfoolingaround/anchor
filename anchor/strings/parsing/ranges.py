@@ -9,7 +9,7 @@ def iter_conditions(string, media_matchers=r"[0-9.]", media_separators=r"[:=-]")
         yield lambda _: True
 
     regexp = re.compile(
-        rf"(?:(?P<start>{media_matchers}*)(?P<separator>{media_separators}))?(?P<end>{media_matchers}+)"
+        rf"(?:(?P<start>{media_matchers}+)(?P<separator>{media_separators})?)(?P<end>{media_matchers}+)?"
     )
 
     for match in regexp.finditer(string):
